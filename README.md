@@ -1,15 +1,14 @@
-# dynamicthings
+# Tools 
+`bun` as package manager
 
-To install dependencies:
+## Back end
+- hono
 
-```bash
-bun install
-```
+## Front end
+- vite react
+- mui
 
-To run:
-
-```bash
-bun run index.ts
-```
-
-This project was created using `bun init` in bun v1.1.17. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+### Plan to add
+- react-query
+- react-router-dom
+- some store or use context for now
