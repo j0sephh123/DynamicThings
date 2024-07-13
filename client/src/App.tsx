@@ -1,5 +1,5 @@
 import BasicTable from './BasicTable';
-import Navbar from './Navbar/Navbar';
+import Navbar from './layout/Navbar';
 import ButtonUsage from './Test';
 
 function App() {

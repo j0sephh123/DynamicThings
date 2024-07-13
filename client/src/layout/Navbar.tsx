@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,10 +14,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
-function Navbar() {
+export default function Navbar() {
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
 		null
 	);
@@ -47,8 +45,8 @@ function Navbar() {
 					<Typography
 						variant="h6"
 						noWrap
-						component="a"
-						href="#app-bar-with-responsive-menu"
+						component={Link}
+						to="/"
 						sx={{
 							mr: 2,
 							display: { xs: 'none', md: 'flex' },
@@ -91,19 +89,24 @@ function Navbar() {
 								display: { xs: 'block', md: 'none' },
 							}}
 						>
-							{pages.map(page => (
-								<MenuItem key={page} onClick={handleCloseNavMenu}>
-									<Typography textAlign="center">{page}</Typography>
-								</MenuItem>
-							))}
+							<MenuItem onClick={handleCloseNavMenu}>
+								<Typography
+									textAlign="center"
+									component={Link}
+									to={`/about`}
+									sx={{ textDecoration: 'none', color: 'inherit' }}
+								>
+									about
+								</Typography>
+							</MenuItem>
 						</Menu>
 					</Box>
 					<AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
 					<Typography
 						variant="h5"
 						noWrap
-						component="a"
-						href="#app-bar-with-responsive-menu"
+						component={Link}
+						to="/"
 						sx={{
 							mr: 2,
 							display: { xs: 'flex', md: 'none' },
@@ -118,15 +121,14 @@ function Navbar() {
 						LOGO
 					</Typography>
 					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-						{pages.map(page => (
-							<Button
-								key={page}
-								onClick={handleCloseNavMenu}
-								sx={{ my: 2, color: 'white', display: 'block' }}
-							>
-								{page}
-							</Button>
-						))}
+						<Button
+							component={Link}
+							to="/about"
+							onClick={handleCloseNavMenu}
+							sx={{ my: 2, color: 'white', display: 'block' }}
+						>
+							About
+						</Button>
 					</Box>
 
 					<Box sx={{ flexGrow: 0 }}>
@@ -150,17 +152,10 @@ function Navbar() {
 							}}
 							open={Boolean(anchorElUser)}
 							onClose={handleCloseUserMenu}
-						>
-							{settings.map(setting => (
-								<MenuItem key={setting} onClick={handleCloseUserMenu}>
-									<Typography textAlign="center">{setting}</Typography>
-								</MenuItem>
-							))}
-						</Menu>
+						></Menu>
 					</Box>
 				</Toolbar>
 			</Container>
 		</AppBar>
 	);
 }
-export default Navbar;
