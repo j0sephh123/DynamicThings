@@ -1,3 +1,5 @@
+export type { EmployeeCreateRequest } from './zodValidators';
+
 export type Employee = {
 	id: number;
 	name: string;
@@ -8,4 +10,5 @@ export type Employee = {
 
 export type Responses = {
 	employees: Employee[];
+	employee: Employee;
 };

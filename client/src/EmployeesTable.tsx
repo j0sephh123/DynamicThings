@@ -7,7 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useFetchEmployees } from './api/queries';
 
-export default function EmployeeTable() {
+export default function EmployeesTable() {
 	const employees = useFetchEmployees();
 
 	return (

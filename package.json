@@ -9,9 +9,11 @@
     "typescript": "^5.0.0"
   },
   "scripts": {
-    "dev": "bun --watch src/index.ts "
+    "dev": "bun --watch server/app.ts "
   },
   "dependencies": {
-    "hono": "^4.4.13"
+    "@hono/zod-validator": "^0.2.2",
+    "hono": "^4.4.13",
+    "zod": "^3.23.8"
   }
 }

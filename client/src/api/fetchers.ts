@@ -1,17 +1,23 @@
 import apiEndpoints from './endpoins';
-import { Responses } from '../../../shared/types';
+import type {
+	Responses,
+	EmployeeCreateRequest,
+} from '../../../server/sharedTypes';
+import fetchApi from './fetchApi';
 
-const genericFetcher = async <T>(endpoint: string) => {
-	const response = await fetch(endpoint);
-	const data = await response.json();
-
-	return data as T;
-};
-
-export const fetchEmployees = async () => {
-	const data = await genericFetcher<Responses['employees']>(
+export const getEmployees = async () => {
+	const data = await fetchApi.get<Responses['employees']>(
 		apiEndpoints.employees
 	);
 
 	return data;
+};
+
+export const createEmployee = async (data: EmployeeCreateRequest) => {
+	const response = await fetchApi.post<Responses['employee']>(
+		apiEndpoints.employeeCreate,
+		data
+	);
+
+	return response;
 };

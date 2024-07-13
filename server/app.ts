@@ -1,5 +1,8 @@
 import { Hono } from 'hono';
-import type { Employee } from '../shared/types';
+import type { Employee } from './sharedTypes';
+import { zValidator } from '@hono/zod-validator';
+import { z } from 'zod';
+import zodValidators from './zodValidators';
 
 const app = new Hono();
 
@@ -23,8 +26,14 @@ const employees = [
 	createEmployee(5, 'Isabella Davis', 'Product Manager', 'Product', 6),
 ];
 
-app.get('/api/employees', c => {
-	return c.json(employees);
-});
+const appRoutes = app
+	.get('/api/employees', c => {
+		return c.json(employees);
+	})
+	.post('/api/employees', zValidator('json', zodValidators.employeePost), c => {
+		return c.json({ a: 5 });
+	});
+
+export type AppRouter = typeof appRoutes;
 
 export default app;

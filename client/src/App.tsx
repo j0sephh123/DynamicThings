@@ -1,13 +1,13 @@
-import BasicTable from './BasicTable';
+import EmployeesTable from './EmployeesTable';
 import Navbar from './layout/Navbar';
-import ButtonUsage from './Test';
+import CreateEmployeeModal from './modals/CreateEmployeeModal';
 
 function App() {
 	return (
 		<>
 			<Navbar />
-			<ButtonUsage />
-			<BasicTable />
+			<EmployeesTable />
+			<CreateEmployeeModal />
 		</>
 	);
 }
