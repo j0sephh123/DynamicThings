@@ -1,12 +1,10 @@
-export type { EmployeeCreateRequest } from './zodValidators';
+import type { EmployeeCreateRequest } from './zodValidators';
+
+export type { EmployeeCreateRequest };
 
 export type Employee = {
 	id: number;
-	name: string;
-	position: string;
-	department: string;
-	experience: number;
-};
+} & EmployeeCreateRequest;
 
 export type Responses = {
 	employees: Employee[];

@@ -1,11 +1,17 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { getEmployees, createEmployee } from './fetchers';
 import { queryKeys } from './queryKeys';
+import fetchApi from './fetchApi';
+import type {
+	EmployeeCreateRequest,
+	Responses,
+} from '../../../server/sharedTypes';
+import apiEndpoints from './endpoins';
 
-export const useFetchEmployees = () => {
+export const useGetEmployees = () => {
 	const { data: employees } = useQuery({
 		queryKey: queryKeys.employees,
-		queryFn: getEmployees,
+		queryFn: async () =>
+			fetchApi.get<Responses['employees']>(apiEndpoints.employees),
 	});
 
 	return employees;
@@ -13,7 +19,8 @@ export const useFetchEmployees = () => {
 
 export const useCreateEmployee = () => {
 	const { mutate } = useMutation({
-		mutationFn: createEmployee,
+		mutationFn: (data: EmployeeCreateRequest) =>
+			fetchApi.post<Responses['employee']>(apiEndpoints.employeeCreate, data),
 		onSuccess: data => {
 			console.log('Employee created', data);
 		},

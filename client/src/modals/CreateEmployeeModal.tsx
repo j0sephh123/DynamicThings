@@ -26,11 +26,10 @@ export default function CreateEmployeeModal() {
 
 	const handleCreateEmployee = () => {
 		createEmployeeMutation({
-			department: 'Development',
+			department: 'Finance',
 			experience: 1,
-			id: 1,
 			name: 'John Doe',
-			position: 'Software Engineer',
+			position: 'DevOps Engineer',
 		});
 	};
 

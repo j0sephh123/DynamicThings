@@ -1,15 +1,15 @@
 import { z } from 'zod';
+import { employeeDepartments, employeePositions } from './constants';
 
 const zodValidators = {
 	employeePost: z.object({
-		department: z.string(),
-		experience: z.number(),
-		id: z.number(),
-		name: z.string(),
-		position: z.string(),
+		experience: z.number().min(0),
+		name: z.string().min(2).max(100),
+		department: z.enum(employeeDepartments),
+		position: z.enum(employeePositions),
 	}),
 } as const;
 
-export type EmployeeCreateRequest = z.infer<typeof zodValidators.employeePost> ;
+export type EmployeeCreateRequest = z.infer<typeof zodValidators.employeePost>;
 
 export default zodValidators;
