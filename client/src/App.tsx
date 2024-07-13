@@ -2,7 +2,7 @@ import EmployeesTable from './EmployeesTable';
 import Navbar from './layout/Navbar';
 import CreateEmployeeModal from './modals/CreateEmployeeModal';
 
-function App() {
+export default function App() {
 	return (
 		<>
 			<Navbar />
@@ -11,5 +11,3 @@ function App() {
 		</>
 	);
 }
-
-export default App;

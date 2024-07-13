@@ -1,3 +1,4 @@
+import { PropsWithChildren } from 'react';
 import '../index.css';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 
@@ -7,11 +8,7 @@ const darkTheme = createTheme({
 	},
 });
 
-export default function DarkThemeProvider({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+export default function DarkThemeProvider({ children }: PropsWithChildren) {
 	return (
 		<ThemeProvider theme={darkTheme}>
 			<CssBaseline />

@@ -3,15 +3,15 @@ import { queryKeys } from './queryKeys';
 import fetchApi from './fetchApi';
 import type {
 	EmployeeCreateRequest,
-	Responses,
 } from '../../../server/sharedTypes';
 import apiEndpoints from './endpoins';
+import { EmployeesCreateResponse, EmployeesGetResponse } from './apiTypes';
 
 export const useGetEmployees = () => {
 	const { data: employees } = useQuery({
 		queryKey: queryKeys.employees,
 		queryFn: async () =>
-			fetchApi.get<Responses['employees']>(apiEndpoints.employees),
+			fetchApi.get<EmployeesGetResponse>(apiEndpoints.employees),
 	});
 
 	return employees;
@@ -20,7 +20,7 @@ export const useGetEmployees = () => {
 export const useCreateEmployee = () => {
 	const { mutate } = useMutation({
 		mutationFn: (data: EmployeeCreateRequest) =>
-			fetchApi.post<Responses['employee']>(apiEndpoints.employeeCreate, data),
+			fetchApi.post<EmployeesCreateResponse>(apiEndpoints.employeeCreate, data),
 		onSuccess: data => {
 			console.log('Employee created', data);
 		},

@@ -1,9 +1,10 @@
-import { Hono } from 'hono';
+import { Hono, type InferResponseType } from 'hono';
 import type { Employee } from './sharedTypes';
 import { zValidator } from '@hono/zod-validator';
 import zodValidators from './zodValidators';
 import createEmployeeFactory from './createEmployeeFactory';
 import type { z } from 'zod';
+import { logger } from 'hono/logger';
 
 const app = new Hono();
 
@@ -28,7 +29,9 @@ const employees = [
 	}),
 ];
 
-const appRoutes = app
+app.use('*', logger());
+
+const appRouter = app
 	.get('/api/employees', c => {
 		return c.json(employees);
 	})
@@ -47,6 +50,8 @@ const appRoutes = app
 		}
 	);
 
-export type AppRouter = typeof appRoutes;
+export type AppRouter = typeof appRouter;
+
+type GetEmployeesResponse = AppRouter;
 
 export default app;

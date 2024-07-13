@@ -1,3 +1,7 @@
+import { AppRouter } from '@server/app';
+import { InferResponseType } from 'hono';
+import { hc } from 'hono/client';
+
 const fetchApi = {
 	get: async <T>(endpoint: string) => {
 		const response = await fetch(endpoint);
@@ -18,5 +22,7 @@ const fetchApi = {
 		return data as T;
 	},
 };
+
+export const apiClient = hc<AppRouter>('/api');
 
 export default fetchApi;
