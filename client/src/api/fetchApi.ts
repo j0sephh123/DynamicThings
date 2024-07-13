@@ -1,5 +1,4 @@
 import { AppRouter } from '@server/app';
-import { InferResponseType } from 'hono';
 import { hc } from 'hono/client';
 
 const fetchApi = {

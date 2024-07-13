@@ -5,6 +5,12 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useCreateEmployee } from '../api/queries';
 
+import {
+	employeeDepartments,
+	// employeePositions,
+} from '../../../server/constants';
+import SelectDepartment from '../form/SelectDepartment';
+
 const style = {
 	position: 'absolute' as 'absolute',
 	top: '50%',
@@ -18,6 +24,9 @@ const style = {
 };
 
 export default function CreateEmployeeModal() {
+	const [selectedDepartment, setSelectedDepartment] = React.useState<
+		(typeof employeeDepartments)[number]
+	>(employeeDepartments[0]);
 	const [open, setOpen] = React.useState(false);
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
@@ -26,7 +35,7 @@ export default function CreateEmployeeModal() {
 
 	const handleCreateEmployee = () => {
 		createEmployeeMutation({
-			department: 'Finance',
+			department: selectedDepartment,
 			experience: 1,
 			name: 'John Doe',
 			position: 'DevOps Engineer',
@@ -35,12 +44,17 @@ export default function CreateEmployeeModal() {
 
 	return (
 		<div>
-			<Button onClick={handleOpen}>Open modal</Button>
+			<Button onClick={handleOpen}>Create Employee</Button>
 			<Modal open={open} onClose={handleClose}>
 				<Box sx={style}>
 					<Typography variant="h6" component="h2">
 						Create an employee
 					</Typography>
+
+					<SelectDepartment
+						selectedDepartment={selectedDepartment}
+						setSelectedDepartment={setSelectedDepartment}
+					/>
 
 					<Button onClick={handleCreateEmployee} variant="contained">
 						Create Employee
