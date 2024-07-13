@@ -5,22 +5,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useQuery } from '@tanstack/react-query';
-import { Responses } from '../../shared/types';
-
-const fetchEmployees = async () => {
-	const response = await fetch('/api/employees');
-	const data = await response.json();
-	console.log(data);
-
-	return data;
-};
+import { useFetchEmployees } from './api/queries';
 
 export default function EmployeeTable() {
-	const { data: employees } = useQuery<Responses['employees']>({
-		queryKey: ['employees'],
-		queryFn: fetchEmployees,
-	});
+	const employees = useFetchEmployees();
 
 	return (
 		<TableContainer component={Paper}>
