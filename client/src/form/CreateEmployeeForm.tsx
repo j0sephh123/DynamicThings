@@ -11,6 +11,7 @@ import { Stack, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useAppContext } from '../context/AppContextProvider';
 import { useQueryClient } from '@tanstack/react-query';
+import { getEmployeesQueryKey } from '../api/queryKeys';
 
 export default function CreateEmployeeForm() {
 	const queryClient = useQueryClient();
@@ -33,10 +34,8 @@ export default function CreateEmployeeForm() {
 			name: nameInput,
 			position: selectedPosition,
 		}).then(() => {
-			console.log('succes');
-
 			queryClient.invalidateQueries({
-				queryKey: ['employees'],
+				queryKey: getEmployeesQueryKey(),
 			});
 			closeModal();
 		});

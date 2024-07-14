@@ -5,14 +5,17 @@ import router from './routing/router.tsx';
 import DarkThemeProvider from './theming/DarkThemeProvider.tsx';
 import ReactQueryProvider from './api/ReactQueryProvider.tsx';
 import AppContextProvider from './context/AppContextProvider.tsx';
+import LocalStorageContextProvider from './context/LocalStorageContextProvider.tsx';
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
 		<ReactQueryProvider>
 			<DarkThemeProvider>
-				<AppContextProvider>
-					<RouterProvider router={router} />
-				</AppContextProvider>
+				<LocalStorageContextProvider>
+					<AppContextProvider>
+						<RouterProvider router={router} />
+					</AppContextProvider>
+				</LocalStorageContextProvider>
 			</DarkThemeProvider>
 		</ReactQueryProvider>
 	</StrictMode>

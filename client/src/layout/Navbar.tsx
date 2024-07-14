@@ -12,10 +12,11 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import CreateEmployeeForm from '../form/CreateEmployeeForm';
 import { Settings } from '@mui/icons-material';
+import { useAppContext } from '../context/AppContextProvider';
 
 export default function Navbar() {
+	const { openModal } = useAppContext();
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
 		null
 	);
@@ -121,7 +122,7 @@ export default function Navbar() {
 							About
 						</Button>
 					</Box>
-					<IconButton>
+					<IconButton onClick={() => openModal('settings')}>
 						<Settings />
 					</IconButton>
 					<Box sx={{ flexGrow: 0 }}>

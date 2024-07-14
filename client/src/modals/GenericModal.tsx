@@ -18,7 +18,7 @@ const style = {
 
 type Props = {
 	label: string;
-	onSubmit: () => void;
+	onSubmit?: () => void;
 } & React.PropsWithChildren;
 
 export default function GenericModal({ label, onSubmit, children }: Props) {
@@ -32,9 +32,11 @@ export default function GenericModal({ label, onSubmit, children }: Props) {
 						{label}
 					</Typography>
 					{children}
-					<Button onClick={onSubmit} variant="contained">
-						{label}
-					</Button>
+					{typeof onSubmit === 'function' && (
+						<Button onClick={onSubmit} variant="contained">
+							{label}
+						</Button>
+					)}
 				</Stack>
 			</Box>
 		</Modal>

@@ -6,13 +6,19 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useGetEmployees } from './api/queries';
+import { useLocalStorageContext } from './context/LocalStorageContextProvider';
 
 export default function EmployeesTable() {
+	const { settings } = useLocalStorageContext();
 	const employees = useGetEmployees();
 
 	return (
 		<TableContainer component={Paper}>
-			<Table sx={{ minWidth: 650 }} aria-label="employee table">
+			<Table
+				size={settings.employeesTableSize}
+				sx={{ minWidth: 650 }}
+				aria-label="employee table"
+			>
 				<TableHead>
 					<TableRow>
 						<TableCell>ID</TableCell>
