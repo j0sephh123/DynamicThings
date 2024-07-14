@@ -12,12 +12,10 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import CreateEmployeeForm from '../form/CreateEmployeeForm';
 
 export default function Navbar() {
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-		null
-	);
-	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
 		null
 	);
 
@@ -27,10 +25,6 @@ export default function Navbar() {
 
 	const handleCloseNavMenu = () => {
 		setAnchorElNav(null);
-	};
-
-	const handleCloseUserMenu = () => {
-		setAnchorElUser(null);
 	};
 
 	return (
@@ -126,27 +120,11 @@ export default function Navbar() {
 							About
 						</Button>
 					</Box>
-
+					<CreateEmployeeForm />
 					<Box sx={{ flexGrow: 0 }}>
 						<IconButton sx={{ p: 0 }}>
 							<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
 						</IconButton>
-						<Menu
-							sx={{ mt: '45px' }}
-							id="menu-appbar"
-							anchorEl={anchorElUser}
-							anchorOrigin={{
-								vertical: 'top',
-								horizontal: 'right',
-							}}
-							keepMounted
-							transformOrigin={{
-								vertical: 'top',
-								horizontal: 'right',
-							}}
-							open={Boolean(anchorElUser)}
-							onClose={handleCloseUserMenu}
-						></Menu>
 					</Box>
 				</Toolbar>
 			</Container>
