@@ -2,7 +2,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import { Typography } from '@mui/material';
+import { Stack, Typography } from '@mui/material';
 
 const style = {
 	position: 'absolute' as 'absolute',
@@ -35,13 +35,15 @@ export default function GenericModal({
 			<Button onClick={handleOpen}>{triggerLabel}</Button>
 			<Modal open={open} onClose={handleClose}>
 				<Box sx={style}>
-					<Typography variant="h6" component="h2">
-						{triggerLabel}
-					</Typography>
-					{children}
-					<Button onClick={onSubmit} variant="contained">
-						{triggerLabel}
-					</Button>
+					<Stack spacing={3}>
+						<Typography variant="h6" component="h2">
+							{triggerLabel}
+						</Typography>
+						{children}
+						<Button onClick={onSubmit} variant="contained">
+							{triggerLabel}
+						</Button>
+					</Stack>
 				</Box>
 			</Modal>
 		</>

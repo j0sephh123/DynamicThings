@@ -1,4 +1,4 @@
-import { MenuItem, Select } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 type Props<T extends readonly string[]> = {
 	options: T;
@@ -14,16 +14,19 @@ export default function Dropdown<T extends readonly string[]>({
 	label,
 }: Props<T>) {
 	return (
-		<Select
-			value={selectedOption}
-			label={label}
-			onChange={e => setSelectedOption(e.target.value as T[number])}
-		>
-			{options.map(option => (
-				<MenuItem key={option} value={option}>
-					{option}
-				</MenuItem>
-			))}
-		</Select>
+		<FormControl fullWidth>
+			<InputLabel>{label}</InputLabel>
+			<Select
+				value={selectedOption}
+				label={label}
+				onChange={e => setSelectedOption(e.target.value as T[number])}
+			>
+				{options.map(option => (
+					<MenuItem key={option} value={option}>
+						{option}
+					</MenuItem>
+				))}
+			</Select>
+		</FormControl>
 	);
 }
