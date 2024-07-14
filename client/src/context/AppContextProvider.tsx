@@ -1,15 +1,40 @@
-import { createContext, PropsWithChildren, useContext, useState } from 'react';
+import {
+	createContext,
+	PropsWithChildren,
+	useCallback,
+	useContext,
+	useState,
+} from 'react';
 
-const AppContext = createContext({
-	myString: '',
-	setMyString: (_value: string) => {},
+type Ctx = {
+	currentModal: Modals | undefined;
+	closeModal: () => void;
+	openModal: (_value: Modals) => void;
+};
+
+const AppContext = createContext<Ctx>({
+	currentModal: undefined,
+	closeModal: () => {},
+	openModal: (_value: Modals) => {},
 });
 
+type Modals = 'settings' | 'createEmployee';
+
 const AppContextProvider = ({ children }: PropsWithChildren) => {
-	const [myString, setMyString] = useState('initialValue');
+	const [currentModal, setCurrentModal] = useState<Modals>();
+
+	const closeModal = useCallback(() => {
+		console.log('closemodal');
+		
+		setCurrentModal(undefined);
+	}, []);
+
+	const openModal = useCallback((value: Modals) => {
+		setCurrentModal(value);
+	}, []);
 
 	return (
-		<AppContext.Provider value={{ myString, setMyString }}>
+		<AppContext.Provider value={{ currentModal, closeModal, openModal }}>
 			{children}
 		</AppContext.Provider>
 	);

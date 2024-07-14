@@ -1,8 +1,8 @@
-import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { Stack, Typography } from '@mui/material';
+import { useAppContext } from '../context/AppContextProvider';
 
 const style = {
 	position: 'absolute' as 'absolute',
@@ -17,35 +17,26 @@ const style = {
 } as const;
 
 type Props = {
-	triggerLabel: string;
+	label: string;
 	onSubmit: () => void;
 } & React.PropsWithChildren;
 
-export default function GenericModal({
-	triggerLabel,
-	onSubmit,
-	children,
-}: Props) {
-	const [open, setOpen] = React.useState(false);
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
+export default function GenericModal({ label, onSubmit, children }: Props) {
+	const { closeModal } = useAppContext();
 
 	return (
-		<>
-			<Button onClick={handleOpen}>{triggerLabel}</Button>
-			<Modal open={open} onClose={handleClose}>
-				<Box sx={style}>
-					<Stack spacing={3}>
-						<Typography variant="h6" component="h2">
-							{triggerLabel}
-						</Typography>
-						{children}
-						<Button onClick={onSubmit} variant="contained">
-							{triggerLabel}
-						</Button>
-					</Stack>
-				</Box>
-			</Modal>
-		</>
+		<Modal open onClose={closeModal}>
+			<Box sx={style}>
+				<Stack spacing={3}>
+					<Typography variant="h6" component="h2">
+						{label}
+					</Typography>
+					{children}
+					<Button onClick={onSubmit} variant="contained">
+						{label}
+					</Button>
+				</Stack>
+			</Box>
+		</Modal>
 	);
 }

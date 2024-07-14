@@ -1,5 +1,4 @@
-import { Hono, type InferResponseType } from 'hono';
-import type { Employee } from './sharedTypes';
+import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import zodValidators from './zodValidators';
 import createEmployeeFactory from './createEmployeeFactory';
@@ -11,19 +10,19 @@ const app = new Hono();
 const employees = [
 	createEmployeeFactory({
 		department: 'Development',
-		experience: 5,
+		experience: 'Intern',
 		name: 'John Doe',
 		position: 'DevOps Engineer',
 	}),
 	createEmployeeFactory({
 		department: 'Development',
-		experience: 2,
+		experience: 'Lead',
 		name: 'Alice Smith',
 		position: 'Project Manager',
 	}),
 	createEmployeeFactory({
 		department: 'Development',
-		experience: 3,
+		experience: 'Senior',
 		name: 'Bob Brown',
 		position: 'Software Engineer',
 	}),
@@ -51,7 +50,5 @@ const appRouter = app
 	);
 
 export type AppRouter = typeof appRouter;
-
-type GetEmployeesResponse = AppRouter;
 
 export default app;

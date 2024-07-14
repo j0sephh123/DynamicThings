@@ -1,9 +1,13 @@
 import { z } from 'zod';
-import { employeeDepartments, employeePositions } from './constants';
+import {
+	employeeDepartments,
+	employeePositions,
+	employeeExperience,
+} from './constants';
 
 const zodValidators = {
 	employeePost: z.object({
-		experience: z.number().min(0),
+		experience: z.enum(employeeExperience),
 		name: z.string().min(2).max(100),
 		department: z.enum(employeeDepartments),
 		position: z.enum(employeePositions),

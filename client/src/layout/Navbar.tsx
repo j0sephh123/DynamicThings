@@ -13,6 +13,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import CreateEmployeeForm from '../form/CreateEmployeeForm';
+import { Settings } from '@mui/icons-material';
 
 export default function Navbar() {
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -120,7 +121,9 @@ export default function Navbar() {
 							About
 						</Button>
 					</Box>
-					<CreateEmployeeForm />
+					<IconButton>
+						<Settings />
+					</IconButton>
 					<Box sx={{ flexGrow: 0 }}>
 						<IconButton sx={{ p: 0 }}>
 							<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
