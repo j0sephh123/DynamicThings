@@ -1,6 +1,6 @@
 import { Add } from '@mui/icons-material';
 import { Box, Fab } from '@mui/material';
-import { useAppContext } from '../context/AppContextProvider';
+import { useAppContext } from '../context/AppContext/AppContext';
 
 export default function CreateEmployeeTrigger() {
 	const { openModal } = useAppContext();
@@ -13,7 +13,14 @@ export default function CreateEmployeeTrigger() {
 				right: 16,
 			}}
 		>
-			<Fab onClick={() => openModal('createEmployee')} color="primary">
+			<Fab
+				onClick={() =>
+					openModal({
+						type: 'createEmployee',
+					})
+				}
+				color="primary"
+			>
 				<Add />
 			</Fab>
 		</Box>

@@ -1,9 +1,10 @@
-import { useAppContext } from './context/AppContextProvider';
-import EmployeesTable from './EmployeesTable';
+import { useAppContext } from './context/AppContext/AppContext';
+import EmployeesTable from './components/EmployeesList/EmployeesTable';
 import CreateEmployeeForm from './form/CreateEmployeeForm';
 import Navbar from './layout/Navbar';
 import CreateEmployeeTrigger from './components/CreateEmployeeTrigger';
 import SettingsForm from './form/SettingsForm';
+import ConfirmDeleteModal from './modals/ConfirmDeleteModal';
 
 export default function App() {
 	const { currentModal } = useAppContext();
@@ -13,8 +14,9 @@ export default function App() {
 			<Navbar />
 			<EmployeesTable />
 			<CreateEmployeeTrigger />
-			{currentModal === 'createEmployee' && <CreateEmployeeForm />}
-			{currentModal === 'settings' && <SettingsForm />}
+			{currentModal?.type === 'createEmployee' && <CreateEmployeeForm />}
+			{currentModal?.type === 'settings' && <SettingsForm />}
+			{currentModal?.type === 'confirmDelete' && <ConfirmDeleteModal />}
 		</>
 	);
 }

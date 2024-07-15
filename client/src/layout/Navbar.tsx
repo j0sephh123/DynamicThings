@@ -13,7 +13,7 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Settings } from '@mui/icons-material';
-import { useAppContext } from '../context/AppContextProvider';
+import { useAppContext } from '../context/AppContext/AppContext';
 
 export default function Navbar() {
 	const { openModal } = useAppContext();
@@ -122,7 +122,13 @@ export default function Navbar() {
 							About
 						</Button>
 					</Box>
-					<IconButton onClick={() => openModal('settings')}>
+					<IconButton
+						onClick={() =>
+							openModal({
+								type: 'settings',
+							})
+						}
+					>
 						<Settings />
 					</IconButton>
 					<Box sx={{ flexGrow: 0 }}>

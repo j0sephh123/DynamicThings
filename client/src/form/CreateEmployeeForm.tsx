@@ -9,7 +9,7 @@ import Dropdown from './Dropdown';
 import GenericModal from '../modals/GenericModal';
 import { Stack, TextField } from '@mui/material';
 import { useState } from 'react';
-import { useAppContext } from '../context/AppContextProvider';
+import { useAppContext } from '../context/AppContext/AppContext';
 import { useQueryClient } from '@tanstack/react-query';
 import { getEmployeesQueryKey } from '../api/queryKeys';
 

@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { Stack, Typography } from '@mui/material';
-import { useAppContext } from '../context/AppContextProvider';
+import { useAppContext } from '../context/AppContext/AppContext';
 
 const style = {
 	position: 'absolute' as 'absolute',
