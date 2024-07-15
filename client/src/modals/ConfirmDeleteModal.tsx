@@ -4,13 +4,28 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { useAppContext } from '../context/AppContext/AppContext';
+import {
+	ConfirmDeleteModalType,
+	useAppContext,
+} from '../context/AppContext/AppContext';
+import { useDeleteEmployee } from '../api/queries';
+import { useQueryClient } from '@tanstack/react-query';
+import { getEmployeesQueryKey } from '../api/queryKeys';
 
-export default function ConfirmDeleteModal() {
+type Props = Omit<ConfirmDeleteModalType, 'type'>;
+
+export default function ConfirmDeleteModal({ id }: Props) {
+	const queryClient = useQueryClient();
 	const { closeModal } = useAppContext();
+	const deleteEmployeeMutation = useDeleteEmployee(id);
 
 	const handleDelete = () => {
-		console.log('delete');
+		deleteEmployeeMutation().then(() => {
+			queryClient.invalidateQueries({
+				queryKey: getEmployeesQueryKey(),
+			});
+			closeModal();
+		});
 	};
 
 	return (

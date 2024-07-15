@@ -6,6 +6,7 @@ import CreateEmployeeTrigger from './components/CreateEmployeeTrigger';
 import SettingsForm from './form/SettingsForm';
 import ConfirmDeleteModal from './modals/ConfirmDeleteModal';
 
+
 export default function App() {
 	const { currentModal } = useAppContext();
 
@@ -16,7 +17,9 @@ export default function App() {
 			<CreateEmployeeTrigger />
 			{currentModal?.type === 'createEmployee' && <CreateEmployeeForm />}
 			{currentModal?.type === 'settings' && <SettingsForm />}
-			{currentModal?.type === 'confirmDelete' && <ConfirmDeleteModal />}
+			{currentModal?.type === 'confirmDelete' && (
+				<ConfirmDeleteModal id={currentModal.id} />
+			)}
 		</>
 	);
 }

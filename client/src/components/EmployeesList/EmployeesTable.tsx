@@ -10,16 +10,20 @@ import { useLocalStorageContext } from '../../context/LocalStorageContextProvide
 import { IconButton } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 import { useAppContext } from '../../context/AppContext/AppContext';
+import { useCallback } from 'react';
+import { Employee } from '@server/sharedTypes';
 
 export default function EmployeesTable() {
 	const { openModal } = useAppContext();
 	const { settings } = useLocalStorageContext();
 	const employees = useGetEmployees();
 
-	const handleRequstDelete = () => {
-		// open confirm delete modal
-		// and set metadata
-	};
+	const handleRequestDelete = useCallback((id: Employee['id']) => {
+		openModal({
+			type: 'confirmDelete',
+			id,
+		});
+	}, []);
 
 	return (
 		<TableContainer component={Paper}>
@@ -50,7 +54,7 @@ export default function EmployeesTable() {
 							<TableCell>{employee.department}</TableCell>
 							<TableCell>{employee.experience}</TableCell>
 							<TableCell align="right">
-								<IconButton onClick={handleRequstDelete}>
+								<IconButton onClick={() => handleRequestDelete(employee.id)}>
 									<Delete color="error" />
 								</IconButton>
 							</TableCell>

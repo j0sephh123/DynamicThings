@@ -4,6 +4,7 @@ import zodValidators from './zodValidators';
 import createEmployeeFactory from './createEmployeeFactory';
 import type { z } from 'zod';
 import { logger } from 'hono/logger';
+import { HTTPException } from 'hono/http-exception';
 
 const app = new Hono();
 
@@ -46,6 +47,24 @@ const appRouter = app
 			employees.push(createdEmployee);
 
 			return c.json(createdEmployee);
+		}
+	)
+	.delete(
+		'/api/employees/:id',
+		zValidator('param', zodValidators.employeeDelete),
+		async c => {
+			const employeeId = +c.req.param('id');
+			const employeeIndex = employees.findIndex(
+				employee => employee.id === employeeId
+			);
+
+			if (employeeIndex === -1) {
+				throw new HTTPException(404, { message: 'Employee not found' });
+			}
+
+			employees.splice(employeeIndex, 1);
+
+			return c.json({ message: 'Employee deleted' });
 		}
 	);
 

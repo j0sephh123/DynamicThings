@@ -20,6 +20,14 @@ const fetchApi = {
 
 		return data as T;
 	},
+	delete: async <T>(endpoint: string) => {
+		const response = await fetch(endpoint, {
+			method: 'DELETE',
+		});
+		const data = await response.json();
+
+		return data as T;
+	},
 };
 
 export const apiClient = hc<AppRouter>('/api');

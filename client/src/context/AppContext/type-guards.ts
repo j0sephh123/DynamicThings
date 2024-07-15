@@ -11,7 +11,7 @@ export function isConfirmDeleteModal(
 		typeof value === 'object' &&
 		value !== null &&
 		value.type === 'confirmDelete' &&
-		typeof value.id === 'string'
+		typeof value.id === 'number'
 	);
 }
 

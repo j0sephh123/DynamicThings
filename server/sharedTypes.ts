@@ -1,7 +1,10 @@
 import type { AppRouter } from './app';
-import type { EmployeeCreateRequest } from './zodValidators';
+import type {
+	EmployeeCreateRequest,
+	EmployeeDeleteRequest,
+} from './zodValidators';
 
-export type { AppRouter, EmployeeCreateRequest };
+export type { AppRouter, EmployeeCreateRequest, EmployeeDeleteRequest };
 
 export type Employee = {
 	id: number;
