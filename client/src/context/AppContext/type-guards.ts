@@ -2,31 +2,27 @@ import {
 	ConfirmDeleteModalType,
 	CreateEmployeeModalType,
 	SettingsModalType,
+	EditEmployeeModalType,
 } from './AppContext';
 
 export function isConfirmDeleteModal(
 	value: any
 ): value is ConfirmDeleteModalType {
-	return (
-		typeof value === 'object' &&
-		value !== null &&
-		value.type === 'confirmDelete' &&
-		typeof value.id === 'number'
-	);
+	return value.type === 'confirmDelete';
+}
+
+export function isEditEmployeeModal(
+	value: any
+): value is EditEmployeeModalType {
+	return value.type === 'editEmployee';
 }
 
 export function isSettingsModalType(value: any): value is SettingsModalType {
-	return (
-		typeof value === 'object' && value !== null && value.type === 'settings'
-	);
+	return value.type === 'settings';
 }
 
 export function isCreateEmployeeModalType(
 	value: any
 ): value is CreateEmployeeModalType {
-	return (
-		typeof value === 'object' &&
-		value !== null &&
-		value.type === 'createEmployee'
-	);
+	return value.type === 'createEmployee';
 }

@@ -7,11 +7,10 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useGetEmployees } from '../../api/queries';
 import { useLocalStorageContext } from '../../context/LocalStorageContextProvider';
-import { IconButton } from '@mui/material';
-import { Delete } from '@mui/icons-material';
 import { useAppContext } from '../../context/AppContext/AppContext';
 import { useCallback } from 'react';
 import { Employee } from '@server/sharedTypes';
+import EmployeeTableRow from './EmployeeTableRow';
 
 export default function EmployeesTable() {
 	const { openModal } = useAppContext();
@@ -22,6 +21,13 @@ export default function EmployeesTable() {
 		openModal({
 			type: 'confirmDelete',
 			id,
+		});
+	}, []);
+
+	const handleRequestEdit = useCallback((employee: Employee) => {
+		openModal({
+			type: 'editEmployee',
+			employee,
 		});
 	}, []);
 
@@ -44,21 +50,12 @@ export default function EmployeesTable() {
 				</TableHead>
 				<TableBody>
 					{employees?.map(employee => (
-						<TableRow
+						<EmployeeTableRow
 							key={employee.id}
-							sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-						>
-							<TableCell>{employee.id}</TableCell>
-							<TableCell>{employee.name}</TableCell>
-							<TableCell>{employee.position}</TableCell>
-							<TableCell>{employee.department}</TableCell>
-							<TableCell>{employee.experience}</TableCell>
-							<TableCell align="right">
-								<IconButton onClick={() => handleRequestDelete(employee.id)}>
-									<Delete color="error" />
-								</IconButton>
-							</TableCell>
-						</TableRow>
+							employee={employee}
+							onEmployeeDelete={() => handleRequestDelete(employee.id)}
+							onEmployeeEdit={() => handleRequestEdit(employee)}
+						/>
 					))}
 				</TableBody>
 			</Table>

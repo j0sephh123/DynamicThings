@@ -1,15 +1,17 @@
-import { Delete } from '@mui/icons-material';
+import { Delete, Edit } from '@mui/icons-material';
 import { TableRow, TableCell, IconButton } from '@mui/material';
 import { Employee } from '@server/sharedTypes';
 
 type Props = {
 	employee: Employee;
-	onEmployeeDelete: (id: Employee['id']) => void;
+	onEmployeeDelete: () => void;
+	onEmployeeEdit: () => void;
 };
 
 export default function EmployeeTableRow({
 	employee,
 	onEmployeeDelete,
+	onEmployeeEdit,
 }: Props) {
 	return (
 		<TableRow
@@ -22,7 +24,10 @@ export default function EmployeeTableRow({
 			<TableCell>{employee.department}</TableCell>
 			<TableCell>{employee.experience}</TableCell>
 			<TableCell align="right">
-				<IconButton onClick={() => onEmployeeDelete(employee.id)}>
+				<IconButton onClick={() => onEmployeeEdit()}>
+					<Edit color='success' />
+				</IconButton>
+				<IconButton onClick={() => onEmployeeDelete()}>
 					<Delete color="error" />
 				</IconButton>
 			</TableCell>

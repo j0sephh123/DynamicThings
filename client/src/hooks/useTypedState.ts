@@ -1,9 +1,8 @@
 import * as React from 'react';
 
-function useTypedState<T extends readonly string[]>(options: T) {
-	const [selectedOption, setSelectedOption] = React.useState<T[number]>(
-		options[0]
-	);
+function useTypedState<T>(initialValue: T) {
+	const [selectedOption, setSelectedOption] =
+		React.useState<T>(initialValue);
 	return [selectedOption, setSelectedOption] as const;
 }
 

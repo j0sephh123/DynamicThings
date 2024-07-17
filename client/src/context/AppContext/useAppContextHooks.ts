@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { AppContextState, CurrentModal, OpenModal } from './AppContext';
-import { isConfirmDeleteModal } from './type-guards';
+import { isConfirmDeleteModal, isEditEmployeeModal } from './type-guards';
 
 const useAppContextHooks = (): AppContextState => {
 	const [currentModal, setCurrentModal] = useState<CurrentModal>();
@@ -15,6 +15,12 @@ const useAppContextHooks = (): AppContextState => {
 		const { type } = params;
 
 		switch (type) {
+			case 'editEmployee':
+				if (isEditEmployeeModal(params)) {
+					const { employee } = params;
+					setCurrentModal({ type, employee });
+				}
+				break;
 			case 'confirmDelete':
 				if (isConfirmDeleteModal(params)) {
 					const { id } = params;
