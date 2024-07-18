@@ -4,7 +4,7 @@ import Navbar from './layout/Navbar';
 import CreateEmployeeTrigger from './components/CreateEmployeeTrigger';
 import SettingsForm from './form/SettingsForm';
 import ConfirmDeleteModal from './modals/ConfirmDeleteModal';
-import EmployeesList from './components/EmployeesList/EmployeesList';
+import Employees from './components/Employees';
 
 export default function App() {
 	const { currentModal } = useAppContext();
@@ -14,7 +14,7 @@ export default function App() {
 	return (
 		<>
 			<Navbar />
-			<EmployeesList/>
+			<Employees />
 			<CreateEmployeeTrigger />
 			{(currentModal?.type === 'createEmployee' ||
 				currentModal?.type === 'editEmployee') && (

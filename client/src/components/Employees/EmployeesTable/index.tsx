@@ -5,30 +5,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useLocalStorageContext } from '../../context/LocalStorageContextProvider';
-import { useAppContext } from '../../context/AppContext/AppContext';
-import { useCallback } from 'react';
-import { Employee } from '@server/sharedTypes';
-import EmployeeTableRow from './EmployeeTableRow';
-import { EmployeesListProps } from './types';
+import { useLocalStorageContext } from '../../../context/LocalStorageContextProvider';
+import EmployeeTableRow from './EmployeesTableRow';
+import { EmployeesListProps } from '../types';
+import useEmployeesCommon from '../useEmployeesCommon';
 
 export default function EmployeesTable({ employees }: EmployeesListProps) {
-	const { openModal } = useAppContext();
 	const { settings } = useLocalStorageContext();
-
-	const handleRequestDelete = useCallback((id: Employee['id']) => {
-		openModal({
-			type: 'confirmDelete',
-			id,
-		});
-	}, []);
-
-	const handleRequestEdit = useCallback((employee: Employee) => {
-		openModal({
-			type: 'editEmployee',
-			employee,
-		});
-	}, []);
+	const { handleRequestDelete, handleRequestEdit } = useEmployeesCommon();
 
 	return (
 		<TableContainer component={Paper}>

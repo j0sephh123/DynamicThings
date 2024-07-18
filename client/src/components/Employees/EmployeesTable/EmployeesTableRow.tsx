@@ -1,19 +1,13 @@
 import { TableRow, TableCell } from '@mui/material';
-import { Employee } from '@server/sharedTypes';
-import EditIcon from '../../icons/EditIcon';
-import DeleteIcon from '../../icons/DeleteIcon';
+import EditIcon from '../../../icons/EditIcon';
+import DeleteIcon from '../../../icons/DeleteIcon';
+import { EmployeesItemProps } from '../types';
 
-type Props = {
-	employee: Employee;
-	onEmployeeDelete: () => void;
-	onEmployeeEdit: () => void;
-};
-
-export default function EmployeeTableRow({
+export default function EmployeesTableRow({
 	employee,
 	onEmployeeDelete,
 	onEmployeeEdit,
-}: Props) {
+}: EmployeesItemProps) {
 	return (
 		<TableRow
 			key={employee.id}
