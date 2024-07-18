@@ -4,7 +4,10 @@ import fetchApi from './fetchApi';
 import type { Employee } from '../../../server/sharedTypes';
 import apiEndpoints from './endpoins';
 import { EmployeesGetResponse } from './apiTypes';
-import { mutationFnCreateEmployee } from './mutationFn';
+import {
+	mutationFnCreateEmployee,
+	mutationFnUpdateEmployee,
+} from './mutationFn';
 
 export const useGetEmployees = () => {
 	const { data: employees } = useQuery({
@@ -16,9 +19,22 @@ export const useGetEmployees = () => {
 	return employees;
 };
 
-export const useSaveEmployee = ({ onSuccess }: { onSuccess: () => void }) => {
+type UseSaveEmployee = {
+	onSuccess: () => void;
+};
+
+export const useCreateEmployee = ({ onSuccess }: UseSaveEmployee) => {
 	const { mutate } = useMutation({
 		mutationFn: mutationFnCreateEmployee,
+		onSuccess,
+	});
+
+	return mutate;
+};
+
+export const useUpdateEmployee = ({ onSuccess }: UseSaveEmployee) => {
+	const { mutate } = useMutation({
+		mutationFn: mutationFnUpdateEmployee,
 		onSuccess,
 	});
 

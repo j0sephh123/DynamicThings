@@ -20,6 +20,18 @@ const fetchApi = {
 
 		return data as T;
 	},
+	put: async <T>(endpoint: string, body: any) => {
+		const response = await fetch(endpoint, {
+			method: 'PUT',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(body),
+		});
+		const data = await response.json();
+
+		return data as T;
+	},
 	delete: async <T>(endpoint: string) => {
 		const response = await fetch(endpoint, {
 			method: 'DELETE',

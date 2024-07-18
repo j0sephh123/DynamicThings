@@ -7,6 +7,8 @@ export type ModalTypes =
 	| 'confirmDelete'
 	| 'editEmployee';
 
+
+
 type OpenModalParams = {
 	type: ModalTypes;
 	id?: number;

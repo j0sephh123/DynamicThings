@@ -3,7 +3,7 @@ import {
 	employeePositions,
 	employeeExperience,
 } from '../../../server/constants';
-import { useSaveEmployee } from '../api/queries';
+import { useCreateEmployee, useUpdateEmployee } from '../api/queries';
 import useTypedState from '../hooks/useTypedState';
 import Dropdown from './Dropdown';
 import GenericModal from '../modals/GenericModal';
@@ -12,10 +12,9 @@ import { useState } from 'react';
 import { ModalTypes, useAppContext } from '../context/AppContext/AppContext';
 import { useQueryClient } from '@tanstack/react-query';
 import { getEmployeesQueryKey } from '../api/queryKeys';
-import { Employee, EmployeeCreateRequest } from '@server/sharedTypes';
-import { isEditEmployeeModal } from '../context/AppContext/type-guards';
+import { isEditEmployeeModal } from '../type-guards';
 
-type Props = {
+export type EmployeeFormProps = {
 	type: Extract<ModalTypes, 'editEmployee' | 'createEmployee'>;
 };
 
@@ -24,14 +23,10 @@ const labels = {
 	createEmployee: 'Create Employee',
 } as const;
 
-export default function EmployeeForm({ type }: Props) {
+export default function EmployeeForm({ type }: EmployeeFormProps) {
 	const { closeModal, currentModal } = useAppContext();
 	const isEdit = isEditEmployeeModal(currentModal);
 	const queryClient = useQueryClient();
-
-	// const employee = queryClient.getQueryData<Employee[]>(getEmployeesQueryKey())?.find(e=>e.id===);
-
-	// console.log(employee);
 
 	const [nameInput, setNameInput] = useState(
 		isEdit ? currentModal.employee.name : ''
@@ -46,7 +41,15 @@ export default function EmployeeForm({ type }: Props) {
 		isEdit ? currentModal.employee.experience : employeeExperience[0]
 	);
 
-	const saveEmployeeMutation = useSaveEmployee({
+	const createEmployeeMutation = useCreateEmployee({
+		onSuccess() {
+			queryClient.invalidateQueries({
+				queryKey: getEmployeesQueryKey(),
+			});
+			closeModal();
+		},
+	});
+	const updateEmployeeMutation = useUpdateEmployee({
 		onSuccess() {
 			queryClient.invalidateQueries({
 				queryKey: getEmployeesQueryKey(),
@@ -56,14 +59,21 @@ export default function EmployeeForm({ type }: Props) {
 	});
 
 	const handleSubmit = () => {
-		const employeeCreateRequest: EmployeeCreateRequest = {
+		const fields = {
 			department: selectedDepartment,
 			experience: selectedExperience,
 			name: nameInput,
 			position: selectedPosition,
 		};
 
-		saveEmployeeMutation(employeeCreateRequest);
+		if (type === 'createEmployee') {
+			createEmployeeMutation(fields);
+		} else if (isEdit) {
+			updateEmployeeMutation({
+				...fields,
+				id: currentModal.employee.id,
+			});
+		}
 	};
 
 	return (

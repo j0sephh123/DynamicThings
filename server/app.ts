@@ -53,7 +53,7 @@ const appRouter = app
 		'/api/employees/:id',
 		zValidator('param', zodValidators.employeeDelete),
 		async c => {
-			const employeeId = +c.req.param('id');
+			const employeeId = c.req.param('id');
 			const employeeIndex = employees.findIndex(
 				employee => employee.id === employeeId
 			);
@@ -65,6 +65,44 @@ const appRouter = app
 			employees.splice(employeeIndex, 1);
 
 			return c.json({ message: 'Employee deleted' });
+		}
+	)
+	.put(
+		'/api/employees/:id',
+		zValidator('param', zodValidators.employeePutParam),
+		zValidator('json', zodValidators.employeePut),
+		async c => {
+			const employeeId = c.req.param('id');
+			const employeeIndex = employees.findIndex(
+				employee => employee.id === employeeId
+			);
+
+			console.log({
+				employeeId,
+				employeeIndex,
+				employees,
+			});
+
+			if (employeeIndex === -1) {
+				throw new HTTPException(404, { message: 'Employee not found' });
+			}
+
+			const employeePutRequest = (await c.req.json()) as z.infer<
+				typeof zodValidators.employeePut
+			>;
+
+			employees[employeeIndex] = {
+				...employees[employeeIndex],
+				...employeePutRequest,
+			};
+
+			console.log({
+				employeeIndex,
+				employeePutRequest,
+				employee: employees[employeeIndex],
+			});
+
+			return c.json(employees[employeeIndex]);
 		}
 	);
 

@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { AppContextState, CurrentModal, OpenModal } from './AppContext';
-import { isConfirmDeleteModal, isEditEmployeeModal } from './type-guards';
+import { isConfirmDeleteModal } from './type-guards';
+import { isEditEmployeeModal } from '../../type-guards';
 
 const useAppContextHooks = (): AppContextState => {
 	const [currentModal, setCurrentModal] = useState<CurrentModal>();
