@@ -11,7 +11,7 @@ export type ModalTypes =
 
 type OpenModalParams = {
 	type: ModalTypes;
-	id?: number;
+	id?: string;
 	employee?: Employee;
 };
 export type OpenModal = (params: OpenModalParams) => void;

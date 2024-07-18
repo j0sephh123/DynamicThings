@@ -5,17 +5,16 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { useGetEmployees } from '../../api/queries';
 import { useLocalStorageContext } from '../../context/LocalStorageContextProvider';
 import { useAppContext } from '../../context/AppContext/AppContext';
 import { useCallback } from 'react';
 import { Employee } from '@server/sharedTypes';
 import EmployeeTableRow from './EmployeeTableRow';
+import { EmployeesListProps } from './types';
 
-export default function EmployeesTable() {
+export default function EmployeesTable({ employees }: EmployeesListProps) {
 	const { openModal } = useAppContext();
 	const { settings } = useLocalStorageContext();
-	const employees = useGetEmployees();
 
 	const handleRequestDelete = useCallback((id: Employee['id']) => {
 		openModal({

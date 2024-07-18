@@ -1,6 +1,7 @@
-import { Delete, Edit } from '@mui/icons-material';
-import { TableRow, TableCell, IconButton } from '@mui/material';
+import { TableRow, TableCell } from '@mui/material';
 import { Employee } from '@server/sharedTypes';
+import EditIcon from '../../icons/EditIcon';
+import DeleteIcon from '../../icons/DeleteIcon';
 
 type Props = {
 	employee: Employee;
@@ -24,12 +25,8 @@ export default function EmployeeTableRow({
 			<TableCell>{employee.department}</TableCell>
 			<TableCell>{employee.experience}</TableCell>
 			<TableCell align="right">
-				<IconButton onClick={() => onEmployeeEdit()}>
-					<Edit color='success' />
-				</IconButton>
-				<IconButton onClick={() => onEmployeeDelete()}>
-					<Delete color="error" />
-				</IconButton>
+				<EditIcon onClick={onEmployeeEdit} />
+				<DeleteIcon onClick={onEmployeeDelete} />
 			</TableCell>
 		</TableRow>
 	);
