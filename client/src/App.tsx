@@ -5,6 +5,7 @@ import CreateEmployeeTrigger from './components/CreateEmployeeTrigger';
 import SettingsForm from './form/SettingsForm';
 import ConfirmDeleteModal from './modals/ConfirmDeleteModal';
 import Employees from './components/Employees';
+import ActivityFeed from './components/ActivityFeed';
 
 export default function App() {
 	const { currentModal } = useAppContext();
@@ -15,6 +16,7 @@ export default function App() {
 		<>
 			<Navbar />
 			<Employees />
+			<ActivityFeed />
 			<CreateEmployeeTrigger />
 			{(currentModal?.type === 'createEmployee' ||
 				currentModal?.type === 'editEmployee') && (
