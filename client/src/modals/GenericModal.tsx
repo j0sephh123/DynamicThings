@@ -7,9 +7,15 @@ import { useAppContext } from '../context/AppContext/AppContext';
 type Props = {
 	label: string;
 	onSubmit?: () => void;
+	isDisabled?: boolean;
 } & React.PropsWithChildren;
 
-export default function GenericModal({ label, onSubmit, children }: Props) {
+export default function GenericModal({
+	isDisabled,
+	label,
+	onSubmit,
+	children,
+}: Props) {
 	const { closeModal } = useAppContext();
 
 	return (
@@ -33,7 +39,11 @@ export default function GenericModal({ label, onSubmit, children }: Props) {
 					</Typography>
 					{children}
 					{typeof onSubmit === 'function' && (
-						<Button onClick={onSubmit} variant="contained">
+						<Button
+							disabled={isDisabled}
+							onClick={onSubmit}
+							variant="contained"
+						>
 							{label}
 						</Button>
 					)}

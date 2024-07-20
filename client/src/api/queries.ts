@@ -8,6 +8,7 @@ import {
 	mutationFnCreateEmployee,
 	mutationFnUpdateEmployee,
 } from './mutationFn';
+import { EmployeePostError, EmployeePutError } from '@server/zodValidators';
 
 export const useGetEmployees = () => {
 	const { data: employees } = useQuery({
@@ -19,23 +20,42 @@ export const useGetEmployees = () => {
 	return employees;
 };
 
-type UseSaveEmployee = {
+export type UseSaveEmployee<T> = {
 	onSuccess: () => void;
+	onError: (error: T) => void;
 };
 
-export const useCreateEmployee = ({ onSuccess }: UseSaveEmployee) => {
+const handleError =
+	<T>(onError: UseSaveEmployee<T>['onError']) =>
+	({ error }: any) => {
+		if (error.name === 'ZodError') {
+			onError(error as T);
+		} else {
+			console.error('Unhandled error:', error);
+		}
+	};
+
+export const useCreateEmployee = ({
+	onSuccess,
+	onError,
+}: UseSaveEmployee<EmployeePostError>) => {
 	const { mutate } = useMutation({
 		mutationFn: mutationFnCreateEmployee,
 		onSuccess,
+		onError: handleError(onError),
 	});
 
 	return mutate;
 };
 
-export const useUpdateEmployee = ({ onSuccess }: UseSaveEmployee) => {
+export const useUpdateEmployee = ({
+	onSuccess,
+	onError,
+}: UseSaveEmployee<EmployeePutError>) => {
 	const { mutate } = useMutation({
 		mutationFn: mutationFnUpdateEmployee,
 		onSuccess,
+		onError: handleError(onError),
 	});
 
 	return mutate;

@@ -10,8 +10,6 @@ import ActivityFeed from './components/ActivityFeed';
 export default function App() {
 	const { currentModal } = useAppContext();
 
-	console.log('currentModal', currentModal);
-
 	return (
 		<>
 			<Navbar />

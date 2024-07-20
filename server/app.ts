@@ -14,18 +14,21 @@ const employees = [
 		experience: 'Intern',
 		name: 'John Doe',
 		position: 'DevOps Engineer',
+		hireDate: new Date('2021-04-03').toDateString(),
 	}),
 	createEmployeeFactory({
 		department: 'Development',
 		experience: 'Lead',
 		name: 'Alice Smith',
 		position: 'Project Manager',
+		hireDate: new Date('2020-02-01').toDateString(),
 	}),
 	createEmployeeFactory({
 		department: 'Development',
 		experience: 'Senior',
 		name: 'Bob Brown',
 		position: 'Software Engineer',
+		hireDate: new Date('2021-01-01').toDateString(),
 	}),
 ];
 
