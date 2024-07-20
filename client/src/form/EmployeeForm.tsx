@@ -7,12 +7,15 @@ import { useCreateEmployee, useUpdateEmployee } from '../api/queries';
 import useTypedState from '../hooks/useTypedState';
 import Dropdown from './Dropdown';
 import GenericModal from '../modals/GenericModal';
-import { Stack, TextField } from '@mui/material';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Unstable_Grid2';
 import { useState } from 'react';
 import { ModalTypes, useAppContext } from '../context/AppContext/AppContext';
 import { useQueryClient } from '@tanstack/react-query';
 import { getEmployeesQueryKey } from '../api/queryKeys';
 import { isEditEmployeeModal } from '../type-guards';
+import { Box, Paper } from '@mui/material';
 
 export type EmployeeFormProps = {
 	type: Extract<ModalTypes, 'editEmployee' | 'createEmployee'>;
@@ -78,32 +81,46 @@ export default function EmployeeForm({ type }: EmployeeFormProps) {
 
 	return (
 		<GenericModal label={labels[type]} onSubmit={handleSubmit}>
-			<Stack spacing={3}>
-				<TextField
-					value={nameInput}
-					onChange={e => setNameInput(e.currentTarget.value)}
-					label="Name"
-					variant="outlined"
-				/>
-				<Dropdown
-					label="Experience"
-					options={employeeExperience}
-					selectedOption={selectedExperience}
-					setSelectedOption={setSelectedExperience}
-				/>
-				<Dropdown
-					label="Department"
-					options={employeeDepartments}
-					selectedOption={selectedDepartment}
-					setSelectedOption={setSelectedDepartment}
-				/>
-				<Dropdown
-					label="Position"
-					options={employeePositions}
-					selectedOption={selectedPosition}
-					setSelectedOption={setSelectedPosition}
-				/>
-			</Stack>
+			<Box sx={{ flexGrow: 1 }}>
+				<Grid container spacing={4}>
+					<Grid xs={6}>
+						<TextField
+							value={nameInput}
+							onChange={e => setNameInput(e.currentTarget.value)}
+							label="Name"
+							variant="outlined"
+							sx={{
+								width: '100%',
+							}}
+						/>
+					</Grid>
+					<Grid xs={6}>
+						<Dropdown
+							label="Experience"
+							options={employeeExperience}
+							selectedOption={selectedExperience}
+							setSelectedOption={setSelectedExperience}
+						/>
+					</Grid>
+					<Grid xs={6}>
+						<Dropdown
+							label="Department"
+							options={employeeDepartments}
+							selectedOption={selectedDepartment}
+							setSelectedOption={setSelectedDepartment}
+						/>
+					</Grid>
+					<Grid xs={6}>
+						<Dropdown
+							label="Position"
+							options={employeePositions}
+							selectedOption={selectedPosition}
+							setSelectedOption={setSelectedPosition}
+						/>
+					</Grid>
+				</Grid>
+			</Box>
+			<Stack spacing={3}></Stack>
 		</GenericModal>
 	);
 }
