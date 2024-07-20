@@ -15,7 +15,8 @@ import { ModalTypes, useAppContext } from '../context/AppContext/AppContext';
 import { useQueryClient } from '@tanstack/react-query';
 import { getEmployeesQueryKey } from '../api/queryKeys';
 import { isEditEmployeeModal } from '../type-guards';
-import { Box, Paper } from '@mui/material';
+import { Box } from '@mui/material';
+import { DatePicker } from '@mui/x-date-pickers';
 
 export type EmployeeFormProps = {
 	type: Extract<ModalTypes, 'editEmployee' | 'createEmployee'>;
@@ -116,6 +117,14 @@ export default function EmployeeForm({ type }: EmployeeFormProps) {
 							options={employeePositions}
 							selectedOption={selectedPosition}
 							setSelectedOption={setSelectedPosition}
+						/>
+					</Grid>
+					<Grid xs={6}>
+						<DatePicker
+							sx={{
+								width: '100%',
+							}}
+							label="Hire Date"
 						/>
 					</Grid>
 				</Grid>
