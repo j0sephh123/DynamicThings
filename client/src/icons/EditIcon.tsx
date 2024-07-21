@@ -4,7 +4,7 @@ import { CommonIconProps } from './types';
 
 export default function EditIcon({ onClick }: CommonIconProps) {
 	return (
-		<IconButton onClick={() => onClick()}>
+		<IconButton onClick={() => typeof onClick === 'function' && onClick()}>
 			<Edit color="success" />
 		</IconButton>
 	);

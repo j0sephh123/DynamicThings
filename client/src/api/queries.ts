@@ -1,14 +1,23 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { getEmployeesQueryKey } from './queryKeys';
+import { getEmployeesQueryKey, getEmployeeProfileQueryKey } from './queryKeys';
 import fetchApi from './fetchApi';
 import type { Employee } from '../../../server/sharedTypes';
 import apiEndpoints from './endpoins';
-import { EmployeesGetResponse } from './apiTypes';
+import { EmployeesGetResponse, EmployeeGetResponse } from './apiTypes';
 import {
 	mutationFnCreateEmployee,
 	mutationFnUpdateEmployee,
 } from './mutationFn';
 import { EmployeePostError, EmployeePutError } from '@server/zodValidators';
+import { queryClient } from './ReactQueryProvider';
+
+export const getEmployeeProfile = (id: string) => {
+	return queryClient.fetchQuery({
+		queryKey: getEmployeeProfileQueryKey(id),
+		queryFn: async () =>
+			fetchApi.get<EmployeeGetResponse>(apiEndpoints.employee(id)),
+	});
+};
 
 export const useGetEmployees = () => {
 	const { data: employees } = useQuery({

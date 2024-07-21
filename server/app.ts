@@ -38,6 +38,20 @@ const appRouter = app
 	.get('/api/employees', c => {
 		return c.json(employees);
 	})
+	.get(
+		'/api/employees/:id',
+		zValidator('param', zodValidators.employeeGet),
+		async c => {
+			const employeeId = c.req.param('id');
+			const employee = employees.find(employee => employee.id === employeeId);
+
+			if (!employee) {
+				throw new HTTPException(404, { message: 'Employee not found' });
+			}
+
+			return c.json(employee);
+		}
+	)
 	.post(
 		'/api/employees',
 		zValidator('json', zodValidators.employeePost),

@@ -8,3 +8,7 @@ export type EmployeesGetResponse = InferResponseType<
 export type EmployeesSaveResponse = InferResponseType<
 	typeof apiClient.api.employees.$post
 >;
+
+export type EmployeeGetResponse = InferResponseType<
+	typeof apiClient.api.employees[':id']['$get']
+>;

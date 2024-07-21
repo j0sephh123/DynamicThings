@@ -28,6 +28,7 @@ const zodValidators = {
 	employeePut: employeeCommonValidator.extend({
 		id: z.string(),
 	}),
+	employeeGet: idParamValidator,
 } as const;
 
 export type EmployeeSaveRequest = z.infer<typeof zodValidators.employeePost>;

@@ -9,8 +9,8 @@ export default function CreateEmployeeTrigger() {
 		<Box
 			sx={{
 				position: 'fixed',
-				bottom: 16,
-				right: 16,
+				bottom: 72,
+				right: 12,
 			}}
 		>
 			<Fab

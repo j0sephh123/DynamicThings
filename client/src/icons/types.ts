@@ -1,3 +1,3 @@
 export type CommonIconProps = {
-	onClick: () => void;
+	onClick?: () => void;
 };

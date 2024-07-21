@@ -1,11 +1,13 @@
+import { AppRouter } from '@server/app';
+import { hc } from 'hono/client';
+
 const fetchApi = {
 	get: async <T>(endpoint: string): Promise<T> => {
 		const response = await fetch(endpoint);
 		if (!response.ok) {
 			const errorData = await response.json();
-			throw new Error(
-				errorData.message || `HTTP error! status: ${response.status}`
-			);
+
+			throw errorData;
 		}
 		const data = await response.json();
 		return data as T;
@@ -48,13 +50,14 @@ const fetchApi = {
 		});
 		if (!response.ok) {
 			const errorData = await response.json();
-			throw new Error(
-				errorData.message || `HTTP error! status: ${response.status}`
-			);
+
+			throw errorData;
 		}
 		const data = await response.json();
 		return data as T;
 	},
 };
+
+export const apiClient = hc<AppRouter>('/api');
 
 export default fetchApi;

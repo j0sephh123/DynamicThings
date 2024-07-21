@@ -7,6 +7,7 @@ import {
 import DeleteIcon from '../../../icons/DeleteIcon';
 import EditIcon from '../../../icons/EditIcon';
 import { EmployeesItemProps } from '../types';
+import { Link } from 'react-router-dom';
 
 export default function EmployeesListItem({
 	employee,
@@ -16,7 +17,11 @@ export default function EmployeesListItem({
 	return (
 		<ListItem divider>
 			<ListItemText
-				primary={<Typography variant="body1">{employee.name}</Typography>}
+				primary={
+					<Link to={`/employees/${employee.id}`}>
+						<Typography variant="body1">{employee.name}</Typography>
+					</Link>
+				}
 				secondary={
 					<>
 						<Typography component="span" variant="body2" color="textPrimary">

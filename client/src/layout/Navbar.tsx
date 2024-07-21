@@ -85,10 +85,18 @@ export default function Navbar() {
 								<Typography
 									textAlign="center"
 									component={Link}
+									to={`/employees`}
+									sx={{ textDecoration: 'none', color: 'inherit' }}
+								>
+									Employees
+								</Typography>
+								<Typography
+									textAlign="center"
+									component={Link}
 									to={`/about`}
 									sx={{ textDecoration: 'none', color: 'inherit' }}
 								>
-									about
+									About
 								</Typography>
 							</MenuItem>
 						</Menu>
@@ -113,6 +121,14 @@ export default function Navbar() {
 						LOGO
 					</Typography>
 					<Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+						<Button
+							component={Link}
+							to="/employees"
+							onClick={handleCloseNavMenu}
+							sx={{ my: 2, color: 'white', display: 'block' }}
+						>
+							Employees
+						</Button>
 						<Button
 							component={Link}
 							to="/about"

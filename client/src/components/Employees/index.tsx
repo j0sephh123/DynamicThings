@@ -6,11 +6,13 @@ import EmployeesTable from './EmployeesTable';
 const components = {
 	list: EmployeesList,
 	table: EmployeesTable,
-}
+};
 
 export default function Employees() {
 	const { settings } = useLocalStorageContext();
 	const employees = useGetEmployees();
+
+	console.log(employees);
 
 	if (!employees) {
 		return;
