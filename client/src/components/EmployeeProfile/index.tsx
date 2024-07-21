@@ -110,9 +110,7 @@ export default function EmployeeProfile() {
 						/>
 					</Tabs>
 					<Divider />
-					<Box sx={{ p: 3 }}>
-						<Outlet />
-					</Box>
+					<Outlet />
 				</Paper>
 			</Container>
 		</div>
