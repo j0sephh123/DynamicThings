@@ -1,6 +1,12 @@
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { PropsWithChildren } from 'react';
 import CardHeader from '../../../primitives/CardHeader';
+import {
+	employeeDepartments,
+	employeeExperience,
+	employeePositions,
+} from '../../../../../server/constants';
+import EmployeeFormFields from '../../../form/EmployeeFormFields';
 
 const CardContent = ({ children }: PropsWithChildren) => {
 	return (
@@ -41,8 +47,16 @@ export default function EmployeeDetails() {
 				</CardContent>
 			</Grid>
 			<Grid xs={8}>
-				<CardHeader>Edit Account Details</CardHeader>
-				<CardContent>1</CardContent>
+				<CardHeader>Edit Account Details (hard coded not working)</CardHeader>
+				<CardContent>
+					<EmployeeFormFields
+						departmentDefaultValue={employeeDepartments[0]}
+						experienceDefaultValue={employeeExperience[0]}
+						hireDateDefaultValue="2021-01-01"
+						positionDefaultValue={employeePositions[0]}
+						nameDefaultValue="John Doe"
+					/>
+				</CardContent>
 			</Grid>
 		</Grid>
 	);

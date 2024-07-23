@@ -2,7 +2,7 @@ import { Outlet, useNavigation } from 'react-router-dom';
 import Navbar from '../layout/Navbar';
 import Loading from './Loading';
 import { useAppContext } from '../context/AppContext/AppContext';
-import EmployeeForm from '../form/EmployeeForm';
+import EmployeeForm from '../form/SaveEmployeeModal';
 import SettingsForm from '../form/SettingsForm';
 import ConfirmDeleteModal from '../modals/ConfirmDeleteModal';
 import CreateEmployeeTrigger from './CreateEmployeeTrigger';

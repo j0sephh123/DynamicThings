@@ -8,9 +8,8 @@ import { useCreateEmployee, useUpdateEmployee } from '../api/queries';
 import useTypedState from '../hooks/useTypedState';
 import Dropdown from './Dropdown';
 import GenericModal from '../modals/GenericModal';
-import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Unstable_Grid2';
+import Grid from '@mui/material/Grid';
 import { ModalTypes, useAppContext } from '../context/AppContext/AppContext';
 import { useQueryClient } from '@tanstack/react-query';
 import { getEmployeesQueryKey } from '../api/queryKeys';
@@ -29,7 +28,7 @@ const labels = {
 	createEmployee: 'Create Employee',
 } as const;
 
-export default function EmployeeForm({ type }: EmployeeFormProps) {
+export default function SaveEmployeeModal({ type }: EmployeeFormProps) {
 	const [nameError, setNameError] = useState('');
 	const { closeModal, currentModal } = useAppContext();
 	const isEdit = isEditEmployeeModal(currentModal);
@@ -114,7 +113,7 @@ export default function EmployeeForm({ type }: EmployeeFormProps) {
 		>
 			<Box sx={{ flexGrow: 1 }}>
 				<Grid container spacing={4}>
-					<Grid xs={6}>
+					<Grid item xs={6}>
 						<TextField
 							error={!!nameError}
 							helperText={nameError}
@@ -127,7 +126,7 @@ export default function EmployeeForm({ type }: EmployeeFormProps) {
 							}}
 						/>
 					</Grid>
-					<Grid xs={6}>
+					<Grid item xs={6}>
 						<Dropdown
 							label="Experience"
 							options={employeeExperience}
@@ -135,7 +134,7 @@ export default function EmployeeForm({ type }: EmployeeFormProps) {
 							setSelectedOption={setSelectedExperience}
 						/>
 					</Grid>
-					<Grid xs={6}>
+					<Grid item xs={6}>
 						<Dropdown
 							label="Department"
 							options={employeeDepartments}
@@ -143,7 +142,7 @@ export default function EmployeeForm({ type }: EmployeeFormProps) {
 							setSelectedOption={setSelectedDepartment}
 						/>
 					</Grid>
-					<Grid xs={6}>
+					<Grid item xs={6}>
 						<Dropdown
 							label="Position"
 							options={employeePositions}
@@ -151,7 +150,7 @@ export default function EmployeeForm({ type }: EmployeeFormProps) {
 							setSelectedOption={setSelectedPosition}
 						/>
 					</Grid>
-					<Grid xs={6}>
+					<Grid item xs={6}>
 						<DatePicker
 							value={hireDate}
 							onChange={setHireDate}
@@ -164,7 +163,6 @@ export default function EmployeeForm({ type }: EmployeeFormProps) {
 					</Grid>
 				</Grid>
 			</Box>
-			<Stack spacing={3}></Stack>
 		</GenericModal>
 	);
 }
