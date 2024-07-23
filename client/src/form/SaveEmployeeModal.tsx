@@ -11,13 +11,12 @@ import GenericModal from '../modals/GenericModal';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import { ModalTypes, useAppContext } from '../context/AppContext/AppContext';
-import { useQueryClient } from '@tanstack/react-query';
-import { getEmployeesQueryKey } from '../api/queryKeys';
 import { isEditEmployeeModal } from '../type-guards';
 import { Box } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
 import { EmployeeSaveRequest } from '@server/zodValidators';
+import useQueryClientActions from '../api/useQueryClientActions';
 
 export type EmployeeFormProps = {
 	type: Extract<ModalTypes, 'editEmployee' | 'createEmployee'>;
@@ -32,7 +31,7 @@ export default function SaveEmployeeModal({ type }: EmployeeFormProps) {
 	const [nameError, setNameError] = useState('');
 	const { closeModal, currentModal } = useAppContext();
 	const isEdit = isEditEmployeeModal(currentModal);
-	const queryClient = useQueryClient();
+	const { invalidateEmployees } = useQueryClientActions();
 
 	const [hireDate, setHireDate] = useState<Dayjs | null>(dayjs('2022-04-17'));
 
@@ -50,9 +49,7 @@ export default function SaveEmployeeModal({ type }: EmployeeFormProps) {
 	);
 
 	const handleSuccess = () => {
-		queryClient.invalidateQueries({
-			queryKey: getEmployeesQueryKey(),
-		});
+		invalidateEmployees();
 		closeModal();
 	};
 
@@ -103,7 +100,7 @@ export default function SaveEmployeeModal({ type }: EmployeeFormProps) {
 		if (nameError) {
 			setNameError('');
 		}
-	}, [nameInput]);
+	}, [nameError, nameInput]);
 
 	return (
 		<GenericModal

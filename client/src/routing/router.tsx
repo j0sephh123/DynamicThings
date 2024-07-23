@@ -35,6 +35,11 @@ const router = createBrowserRouter([
 					{
 						path: 'details',
 						element: <EmployeeDetails />,
+						loader: ({ params: { id } }) => {
+							if (!id) return null;
+
+							return getEmployeeProfile(id);
+						},
 					},
 					{
 						path: 'job',

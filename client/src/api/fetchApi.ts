@@ -4,6 +4,7 @@ import { hc } from 'hono/client';
 const fetchApi = {
 	get: async <T>(endpoint: string): Promise<T> => {
 		const response = await fetch(endpoint);
+
 		if (!response.ok) {
 			const errorData = await response.json();
 
@@ -12,6 +13,7 @@ const fetchApi = {
 		const data = await response.json();
 		return data as T;
 	},
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	post: async <T>(endpoint: string, body: any): Promise<T> => {
 		const response = await fetch(endpoint, {
 			method: 'POST',
@@ -28,6 +30,7 @@ const fetchApi = {
 		const data = await response.json();
 		return data as T;
 	},
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	put: async <T>(endpoint: string, body: any): Promise<T> => {
 		const response = await fetch(endpoint, {
 			method: 'PUT',

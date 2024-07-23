@@ -1,18 +1,26 @@
-import { Box, Grid, Typography } from '@mui/material';
-import { PropsWithChildren } from 'react';
+import { Box, Button, Grid, TextField, Typography } from '@mui/material';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import { PropsWithChildren, useMemo, useRef, useState } from 'react';
 import CardHeader from '../../../primitives/CardHeader';
 import {
 	employeeDepartments,
 	employeeExperience,
 	employeePositions,
 } from '../../../../../server/constants';
-import EmployeeFormFields from '../../../form/EmployeeFormFields';
+import { DatePicker } from '@mui/x-date-pickers';
+import dayjs, { Dayjs } from 'dayjs';
+import Dropdown from '../../../form/Dropdown';
+import useTypedState from '../../../hooks/useTypedState';
+import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import { useLoaderData } from 'react-router-dom';
+import { getEmployeeProfile, useUpdateEmployee } from '../../../api/queries';
+import shallowCompare from '../../../utils/shallowCompare';
+import useQueryClientActions from '../../../api/useQueryClientActions';
 
 const CardContent = ({ children }: PropsWithChildren) => {
 	return (
 		<Box
 			sx={theme => ({
-				// TODO extract as a generic wrapper
 				ml: theme.spacing(1),
 				p: theme.spacing(2),
 				border: `1px solid ${theme.palette.grey[700]}`,
@@ -27,9 +35,86 @@ const CardContent = ({ children }: PropsWithChildren) => {
 };
 
 export default function EmployeeDetails() {
+	const employeeProfile = useLoaderData() as Awaited<
+		ReturnType<typeof getEmployeeProfile>
+	>;
+
+	const initialDetailsRef = useRef(employeeProfile);
+
+	const [hireDate, setHireDate] = useState<Dayjs | null>(
+		dayjs(employeeProfile.hireDate)
+	);
+	const [nameInput, setNameInput] = useState(employeeProfile.name);
+	const [selectedDepartment, setSelectedDepartment] = useTypedState(
+		employeeProfile.department
+	);
+	const [selectedPosition, setSelectedPosition] = useTypedState(
+		employeeProfile.position
+	);
+	const [selectedExperience, setSelectedExperience] = useTypedState(
+		employeeProfile.experience
+	);
+
+	const hasUserModifiedFields = useMemo(() => {
+		const initialDetails: Omit<typeof employeeProfile, 'id'> = {
+			department: initialDetailsRef.current.department,
+			experience: initialDetailsRef.current.experience,
+			hireDate: dayjs(initialDetailsRef.current.hireDate).format('YYYY-MM-DD'),
+			name: initialDetailsRef.current.name,
+			position: initialDetailsRef.current.position,
+		};
+
+		const fields: Omit<typeof employeeProfile, 'id'> = {
+			hireDate: hireDate?.format('YYYY-MM-DD') as string,
+			name: nameInput,
+			department: selectedDepartment,
+			position: selectedPosition,
+			experience: selectedExperience,
+		};
+
+		return !shallowCompare(initialDetails, fields);
+	}, [
+		hireDate,
+		nameInput,
+		selectedDepartment,
+		selectedExperience,
+		selectedPosition,
+	]);
+
+	const { refetchEmployeeProfile } = useQueryClientActions();
+	const updateEmployeeMutation = useUpdateEmployee({
+		onSuccess: employeeVariables => {
+			// FIXME cause re-render
+			initialDetailsRef.current = employeeVariables;
+			refetchEmployeeProfile(employeeProfile.id);
+		},
+		// TODO reinstate validation
+		onError(error) {
+			const path = error.issues[0].path[0] as string;
+			if (path === 'name') {
+				// setNameError(error.issues[0].message);
+			}
+		},
+	});
+
+	const handleSave = () => {
+		if (!hireDate) {
+			return;
+		}
+
+		updateEmployeeMutation({
+			id: employeeProfile.id,
+			department: selectedDepartment,
+			experience: selectedExperience,
+			name: nameInput,
+			position: selectedPosition,
+			hireDate: hireDate.toString(),
+		});
+	};
+
 	return (
-		<Grid container spacing={1}>
-			<Grid xs={4}>
+		<Grid2 container spacing={1}>
+			<Grid2 xs={4}>
 				<CardHeader>Profile Picture</CardHeader>
 				<CardContent>
 					<Box
@@ -45,19 +130,71 @@ export default function EmployeeDetails() {
 						Upload/Change Your Profile Image
 					</Typography>
 				</CardContent>
-			</Grid>
-			<Grid xs={8}>
-				<CardHeader>Edit Account Details (hard coded not working)</CardHeader>
+			</Grid2>
+			<Grid2 xs={8}>
+				<CardHeader>Edit Account Details</CardHeader>
 				<CardContent>
-					<EmployeeFormFields
-						departmentDefaultValue={employeeDepartments[0]}
-						experienceDefaultValue={employeeExperience[0]}
-						hireDateDefaultValue="2021-01-01"
-						positionDefaultValue={employeePositions[0]}
-						nameDefaultValue="John Doe"
-					/>
+					<Grid container spacing={4}>
+						<Grid item xs={6}>
+							<TextField
+								value={nameInput}
+								onChange={e => setNameInput(e.currentTarget.value)}
+								label="Name"
+								variant="outlined"
+								sx={{
+									width: '100%',
+								}}
+							/>
+						</Grid>
+						<Grid item xs={6}>
+							<Dropdown
+								label="Experience"
+								options={employeeExperience}
+								selectedOption={selectedExperience}
+								setSelectedOption={setSelectedExperience}
+							/>
+						</Grid>
+						<Grid item xs={6}>
+							<Dropdown
+								label="Department"
+								options={employeeDepartments}
+								selectedOption={selectedDepartment}
+								setSelectedOption={setSelectedDepartment}
+							/>
+						</Grid>
+						<Grid item xs={6}>
+							<Dropdown
+								label="Position"
+								options={employeePositions}
+								selectedOption={selectedPosition}
+								setSelectedOption={setSelectedPosition}
+							/>
+						</Grid>
+						<Grid item xs={6}>
+							<DatePicker
+								value={hireDate}
+								onChange={setHireDate}
+								label="Hire Date"
+								disableFuture
+							/>
+						</Grid>
+						<Grid item xs={12}>
+							<Button
+								onClick={handleSave}
+								disabled={!hasUserModifiedFields}
+								color="success"
+								endIcon={
+									hasUserModifiedFields ? <FiberManualRecordIcon /> : undefined
+								}
+								variant="contained"
+								fullWidth
+							>
+								Save
+							</Button>
+						</Grid>
+					</Grid>
 				</CardContent>
-			</Grid>
-		</Grid>
+			</Grid2>
+		</Grid2>
 	);
 }

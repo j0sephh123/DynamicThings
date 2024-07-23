@@ -36,6 +36,7 @@ export type UseSaveEmployee<T> = {
 
 const handleError =
 	<T>(onError: UseSaveEmployee<T>['onError']) =>
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	({ error }: any) => {
 		if (error.name === 'ZodError') {
 			onError(error as T);
@@ -57,13 +58,23 @@ export const useCreateEmployee = ({
 	return mutate;
 };
 
+export type UseUpdateEmployee = {
+	onSuccess: (variables: Employee) => void;
+	onError: (error: EmployeePutError) => void;
+};
+
 export const useUpdateEmployee = ({
 	onSuccess,
 	onError,
-}: UseSaveEmployee<EmployeePutError>) => {
+}: UseUpdateEmployee) => {
 	const { mutate } = useMutation({
 		mutationFn: mutationFnUpdateEmployee,
-		onSuccess,
+		onSuccess: (
+			_data: Awaited<ReturnType<typeof mutationFnUpdateEmployee>>,
+			variables: Employee
+		) => {
+			onSuccess(variables);
+		},
 		onError: handleError(onError),
 	});
 

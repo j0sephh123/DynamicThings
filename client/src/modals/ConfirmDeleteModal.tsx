@@ -9,21 +9,18 @@ import {
 	useAppContext,
 } from '../context/AppContext/AppContext';
 import { useDeleteEmployee } from '../api/queries';
-import { useQueryClient } from '@tanstack/react-query';
-import { getEmployeesQueryKey } from '../api/queryKeys';
+import useQueryClientActions from '../api/useQueryClientActions';
 
 type Props = Omit<ConfirmDeleteModalType, 'type'>;
 
 export default function ConfirmDeleteModal({ id }: Props) {
-	const queryClient = useQueryClient();
+	const { invalidateEmployees } = useQueryClientActions();
 	const { closeModal } = useAppContext();
 	const deleteEmployeeMutation = useDeleteEmployee(id);
 
 	const handleDelete = () => {
 		deleteEmployeeMutation().then(() => {
-			queryClient.invalidateQueries({
-				queryKey: getEmployeesQueryKey(),
-			});
+			invalidateEmployees();
 			closeModal();
 		});
 	};

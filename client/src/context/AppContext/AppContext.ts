@@ -7,8 +7,6 @@ export type ModalTypes =
 	| 'confirmDelete'
 	| 'editEmployee';
 
-
-
 type OpenModalParams = {
 	type: ModalTypes;
 	id?: string;
@@ -16,7 +14,10 @@ type OpenModalParams = {
 };
 export type OpenModal = (params: OpenModalParams) => void;
 
-export type ConfirmDeleteModalType = { type: 'confirmDelete'; id: number };
+export type ConfirmDeleteModalType = {
+	type: 'confirmDelete';
+	id: Employee['id'];
+};
 export type SettingsModalType = { type: 'settings' };
 export type CreateEmployeeModalType = { type: 'createEmployee' };
 export type EditEmployeeModalType = {

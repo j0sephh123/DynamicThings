@@ -14,7 +14,6 @@ import {
 	Tab,
 	Tabs,
 	Link,
-	Box,
 	Divider,
 } from '@mui/material';
 import WorkIcon from '../../icons/WorkIcon';
@@ -31,16 +30,12 @@ export default function EmployeeProfile() {
 	]);
 	const currentTab = routeMatch?.pattern?.path;
 
-	console.log({ currentTab, routeMatch });
-
 	function handleBreadcrumbClick(
 		event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
 	) {
 		event.preventDefault();
 		console.info('You clicked a breadcrumb.');
 	}
-
-	console.log(employeeProfile);
 
 	const breadcrumbs = [
 		<Link
