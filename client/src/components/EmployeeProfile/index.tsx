@@ -5,7 +5,6 @@ import {
 	useLoaderData,
 	useLocation,
 } from 'react-router-dom';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { getEmployeeProfile } from '../../api/queries';
 import {
 	Typography,
@@ -18,6 +17,7 @@ import {
 } from '@mui/material';
 import WorkIcon from '../../icons/WorkIcon';
 import PersonIcon from '../../icons/PersonIcon';
+import MuiBreadcrumbs from '../../plugins/mui/MuiBreadcrumbs';
 
 export default function EmployeeProfile() {
 	const employeeProfile = useLoaderData() as Awaited<
@@ -78,9 +78,7 @@ export default function EmployeeProfile() {
 					}}
 				>
 					<Typography variant="h5">Employee Profile</Typography>
-					<Breadcrumbs separator=">" aria-label="breadcrumb">
-						{breadcrumbs}
-					</Breadcrumbs>
+					<MuiBreadcrumbs>{breadcrumbs}</MuiBreadcrumbs>
 				</Paper>
 			</Container>
 

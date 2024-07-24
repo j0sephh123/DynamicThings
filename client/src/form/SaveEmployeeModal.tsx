@@ -97,6 +97,7 @@ export default function SaveEmployeeModal({ type }: EmployeeFormProps) {
 	};
 
 	useEffect(() => {
+		// FIXME doesn't work
 		if (nameError) {
 			setNameError('');
 		}

@@ -1,6 +1,6 @@
 import { Add } from '@mui/icons-material';
 import { Box, Fab } from '@mui/material';
-import { useAppContext } from '../context/AppContext/AppContext';
+import { useAppContext } from '../../../context/AppContext/AppContext';
 
 export default function CreateEmployeeTrigger() {
 	const { openModal } = useAppContext();

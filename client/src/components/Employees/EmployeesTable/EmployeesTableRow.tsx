@@ -2,7 +2,7 @@ import { TableRow, TableCell } from '@mui/material';
 import EditIcon from '../../../icons/EditIcon';
 import DeleteIcon from '../../../icons/DeleteIcon';
 import { EmployeesItemProps } from '../types';
-import AppLink from '../../../components/AppLink';
+import MuiAppLink from '../../../plugins/mui/MuiAppLink';
 
 export default function EmployeesTableRow({
 	employee,
@@ -16,7 +16,9 @@ export default function EmployeesTableRow({
 		>
 			<TableCell>{employee.id}</TableCell>
 			<TableCell>
-				<AppLink to={`/employees/${employee.id}`}>{employee.name}</AppLink>
+				<MuiAppLink to={`/employees/${employee.id}`}>
+					{employee.name}
+				</MuiAppLink>
 			</TableCell>
 			<TableCell>{employee.position}</TableCell>
 			<TableCell>{employee.department}</TableCell>

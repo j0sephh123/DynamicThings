@@ -1,6 +1,5 @@
 import { Box, Button, Grid, TextField, Typography } from '@mui/material';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import { PropsWithChildren, useMemo, useRef, useState } from 'react';
+import { PropsWithChildren, useEffect, useMemo, useRef, useState } from 'react';
 import CardHeader from '../../../primitives/CardHeader';
 import {
 	employeeDepartments,
@@ -11,17 +10,16 @@ import { DatePicker } from '@mui/x-date-pickers';
 import dayjs, { Dayjs } from 'dayjs';
 import Dropdown from '../../../form/Dropdown';
 import useTypedState from '../../../hooks/useTypedState';
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
 import { useLoaderData } from 'react-router-dom';
 import { getEmployeeProfile, useUpdateEmployee } from '../../../api/queries';
 import shallowCompare from '../../../utils/shallowCompare';
 import useQueryClientActions from '../../../api/useQueryClientActions';
+import FiberManualRecordIcon from '../../../icons/FiberManualRecordIcon';
 
 const CardContent = ({ children }: PropsWithChildren) => {
 	return (
 		<Box
 			sx={theme => ({
-				ml: theme.spacing(1),
 				p: theme.spacing(2),
 				border: `1px solid ${theme.palette.grey[700]}`,
 				borderTop: 'none',
@@ -35,6 +33,7 @@ const CardContent = ({ children }: PropsWithChildren) => {
 };
 
 export default function EmployeeDetails() {
+	const [nameError, setNameError] = useState('');
 	const employeeProfile = useLoaderData() as Awaited<
 		ReturnType<typeof getEmployeeProfile>
 	>;
@@ -92,7 +91,7 @@ export default function EmployeeDetails() {
 		onError(error) {
 			const path = error.issues[0].path[0] as string;
 			if (path === 'name') {
-				// setNameError(error.issues[0].message);
+				setNameError(error.issues[0].message);
 			}
 		},
 	});
@@ -112,9 +111,16 @@ export default function EmployeeDetails() {
 		});
 	};
 
+	useEffect(() => {
+		// FIXME doesn't work
+		if (nameError) {
+			setNameError('');
+		}
+	}, [nameError, nameInput]);
+
 	return (
-		<Grid2 container spacing={1}>
-			<Grid2 xs={4}>
+		<Grid container spacing={1}>
+			<Grid item xs={4}>
 				<CardHeader>Profile Picture</CardHeader>
 				<CardContent>
 					<Box
@@ -130,13 +136,15 @@ export default function EmployeeDetails() {
 						Upload/Change Your Profile Image
 					</Typography>
 				</CardContent>
-			</Grid2>
-			<Grid2 xs={8}>
+			</Grid>
+			<Grid item xs={8}>
 				<CardHeader>Edit Account Details</CardHeader>
 				<CardContent>
 					<Grid container spacing={4}>
 						<Grid item xs={6}>
 							<TextField
+								error={!!nameError}
+								helperText={nameError}
 								value={nameInput}
 								onChange={e => setNameInput(e.currentTarget.value)}
 								label="Name"
@@ -189,12 +197,12 @@ export default function EmployeeDetails() {
 								variant="contained"
 								fullWidth
 							>
-								Save
+								Save {nameError ? 'Error' : ''}
 							</Button>
 						</Grid>
 					</Grid>
 				</CardContent>
-			</Grid2>
-		</Grid2>
+			</Grid>
+		</Grid>
 	);
 }

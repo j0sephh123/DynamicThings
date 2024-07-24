@@ -6,7 +6,7 @@ type Props = {
 	to: string;
 } & PropsWithChildren;
 
-export default function AppLink({ to, children }: Props) {
+export default function MuiAppLink({ to, children }: Props) {
 	return (
 		<Link component={RouterLink} to={to}>
 			{children}
