@@ -1,8 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useLocalStorage } from 'react-use';
 import { createContext, PropsWithChildren, useContext } from 'react';
-
-export const employeesTableSizeOptions = ['small', 'medium'] as const;
-export const employeesLayoutOptions = ['table', 'list'] as const;
+import { employeesLayoutOptions, employeesTableSizeOptions } from './constants';
 
 export type Settings = {
 	employeesTableSize: (typeof employeesTableSizeOptions)[number];

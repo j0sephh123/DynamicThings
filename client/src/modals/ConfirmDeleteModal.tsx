@@ -6,8 +6,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import {
 	ConfirmDeleteModalType,
-	useAppContext,
-} from '../context/AppContext/AppContext';
+	useModalContext,
+} from '../context/ModalContext/ModalContext';
 import { useDeleteEmployee } from '../api/queries';
 import useQueryClientActions from '../api/useQueryClientActions';
 
@@ -15,7 +15,7 @@ type Props = Omit<ConfirmDeleteModalType, 'type'>;
 
 export default function ConfirmDeleteModal({ id }: Props) {
 	const { invalidateEmployees } = useQueryClientActions();
-	const { closeModal } = useAppContext();
+	const { closeModal } = useModalContext();
 	const deleteEmployeeMutation = useDeleteEmployee(id);
 
 	const handleDelete = () => {

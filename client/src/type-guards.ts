@@ -3,7 +3,7 @@ import { EmployeeSaveRequest } from '@server/zodValidators';
 import {
 	EditEmployeeModalType,
 	ModalTypes,
-} from './context/AppContext/AppContext';
+} from './context/ModalContext/ModalContext';
 
 type CreateEmployeeProps = {
 	type: Extract<ModalTypes, 'createEmployee'>;

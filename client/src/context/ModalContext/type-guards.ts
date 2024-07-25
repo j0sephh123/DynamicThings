@@ -2,7 +2,7 @@ import {
 	ConfirmDeleteModalType,
 	CreateEmployeeModalType,
 	SettingsModalType,
-} from './AppContext';
+} from './ModalContext';
 
 export function isConfirmDeleteModal(
 	value: any

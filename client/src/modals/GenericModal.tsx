@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import { Stack, Typography } from '@mui/material';
-import { useAppContext } from '../context/AppContext/AppContext';
+import { useModalContext } from '../context/ModalContext/ModalContext';
 
 type Props = {
 	label: string;
@@ -16,7 +16,7 @@ export default function GenericModal({
 	onSubmit,
 	children,
 }: Props) {
-	const { closeModal } = useAppContext();
+	const { closeModal } = useModalContext();
 
 	return (
 		<Modal open onClose={closeModal}>

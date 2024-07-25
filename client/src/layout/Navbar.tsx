@@ -13,10 +13,10 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Settings } from '@mui/icons-material';
-import { useAppContext } from '../context/AppContext/AppContext';
+import { useModalContext } from '../context/ModalContext/ModalContext';
 
 export default function Navbar() {
-	const { openModal } = useAppContext();
+	const { openModal } = useModalContext();
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
 		null
 	);

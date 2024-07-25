@@ -1,9 +1,9 @@
 import { Employee } from '@server/sharedTypes';
 import { useCallback } from 'react';
-import { useAppContext } from '../../context/AppContext/AppContext';
+import { useModalContext } from '../../context/ModalContext/ModalContext';
 
 export default function useEmployeesCommon() {
-	const { openModal } = useAppContext();
+	const { openModal } = useModalContext();
 
 	const handleRequestDelete = useCallback((id: Employee['id']) => {
 		openModal({

@@ -1,6 +1,6 @@
 import { Outlet, useNavigation } from 'react-router-dom';
 import Navbar from '../layout/Navbar';
-import { useAppContext } from '../context/AppContext/AppContext';
+import { useModalContext } from '../context/ModalContext/ModalContext';
 import EmployeeForm from '../form/SaveEmployeeModal';
 import SettingsForm from '../form/SettingsForm';
 import ConfirmDeleteModal from '../modals/ConfirmDeleteModal';
@@ -8,7 +8,7 @@ import CreateEmployeeTrigger from '../plugins/mui/CreateEmployeeTrigger';
 
 export default function Layout() {
 	const navigation = useNavigation();
-	const { currentModal } = useAppContext();
+	const { currentModal } = useModalContext();
 
 	if (navigation.state === 'loading') {
 		return <span>loading</span>;

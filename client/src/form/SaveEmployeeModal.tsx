@@ -10,7 +10,10 @@ import Dropdown from './Dropdown';
 import GenericModal from '../modals/GenericModal';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
-import { ModalTypes, useAppContext } from '../context/AppContext/AppContext';
+import {
+	ModalTypes,
+	useModalContext,
+} from '../context/ModalContext/ModalContext';
 import { isEditEmployeeModal } from '../type-guards';
 import { Box } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers';
@@ -29,7 +32,7 @@ const labels = {
 
 export default function SaveEmployeeModal({ type }: EmployeeFormProps) {
 	const [nameError, setNameError] = useState('');
-	const { closeModal, currentModal } = useAppContext();
+	const { closeModal, currentModal } = useModalContext();
 	const isEdit = isEditEmployeeModal(currentModal);
 	const { invalidateEmployees } = useQueryClientActions();
 

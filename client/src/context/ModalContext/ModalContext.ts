@@ -31,16 +31,16 @@ export type CurrentModal =
 	| CreateEmployeeModalType
 	| EditEmployeeModalType;
 
-export type AppContextState = {
+export type ModalContextState = {
 	currentModal?: CurrentModal;
 	closeModal: () => void;
 	openModal: OpenModal;
 };
 
-export const AppStateContext = createContext<AppContextState>({
+export const ModalStateContext = createContext<ModalContextState>({
 	currentModal: undefined,
 	closeModal: () => {},
 	openModal: () => {},
 });
 
-export const useAppContext = () => useContext(AppStateContext);
+export const useModalContext = () => useContext(ModalStateContext);

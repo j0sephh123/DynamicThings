@@ -1,14 +1,12 @@
 import { useState, useCallback } from 'react';
-import { AppContextState, CurrentModal, OpenModal } from './AppContext';
+import { ModalContextState, CurrentModal, OpenModal } from './ModalContext';
 import { isConfirmDeleteModal } from './type-guards';
 import { isEditEmployeeModal } from '../../type-guards';
 
-const useAppContextHooks = (): AppContextState => {
+const useModalContextHooks = (): ModalContextState => {
 	const [currentModal, setCurrentModal] = useState<CurrentModal>();
 
 	const closeModal = useCallback(() => {
-		console.log('closemodal');
-
 		setCurrentModal(undefined);
 	}, []);
 
@@ -44,4 +42,4 @@ const useAppContextHooks = (): AppContextState => {
 	};
 };
 
-export default useAppContextHooks;
+export default useModalContextHooks;
